@@ -14,20 +14,20 @@ export const getAbsoluteUrl = (url?: string): string => {
 
 export const GENERATED_IMAGES = {
   // Combos
-  comboOneClassics: "/assets/images/combo_one_classics_1780188277518.png",
-  comboTwoFeast: "/assets/images/combo_two_feast_1780188293029.png",
+  comboOneClassics: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&q=80&w=1200",
+  comboTwoFeast: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&q=80&w=1200",
   
   // Appetizers (Vegetarian)
-  samosas: "/assets/images/samosa_appetizer_1779589241717.png",
+  samosas: "https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&q=80&w=1200",
   alooTikki: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&q=80&w=800",
   samosaChaat: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&q=80&w=800",
   chiliPaneer: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=800",
   springRolls: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?auto=format&fit=crop&q=80&w=800",
   hakkaNoodles: "https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&q=80&w=800",
-  gobiManchurian: "/assets/images/gobi_manchurian_1780184889706.png",
+  gobiManchurian: "https://images.unsplash.com/photo-1625398407796-82650a8c135f?auto=format&fit=crop&q=80&w=1200",
 
   // Appetizers (Non-Vegetarian)
-  chiliChicken: "/assets/images/chili_chicken_wings_1780184875974.png",
+  chiliChicken: "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?auto=format&fit=crop&q=80&w=1200",
   tandooriChicken: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=800",
   tikkaFries: "https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&q=80&w=800",
 
@@ -47,14 +47,14 @@ export const GENERATED_IMAGES = {
   dalMakhni: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&q=80&w=800",
 
   // Non-Vegetarian Entree
-  tikkaMasala: "/assets/images/chicken_tikka_masala_1780184918595.png",
-  butterChicken: "/assets/images/hero_butter_chicken_1779589199615.png",
+  tikkaMasala: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=1200",
+  butterChicken: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&q=80&w=1200",
   goatCurry: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800",
   lambCurry: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800",
   chickenCurry: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&q=80&w=800",
 
   // Breads & Sides
-  garlicNaan: "/assets/images/garlic_naan_bread_1780184942866.png",
+  garlicNaan: "https://images.unsplash.com/photo-1601356616077-695728de174f?auto=format&fit=crop&q=80&w=1200",
   paratha: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&q=80&w=800",
   roti: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&q=80&w=800"
 };
