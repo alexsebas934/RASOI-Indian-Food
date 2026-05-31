@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { CartItem, MenuItem, SpiceLevel } from "../types";
 import { X, Trash2, Plus, Minus, ShoppingBag, Check, Phone, Info, Clock, MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { getAbsoluteUrl } from "../data";
 
 interface CartSidebarProps {
   isOpen: boolean;
@@ -177,7 +178,7 @@ export default function CartSidebar({
                       >
                         <div className="flex items-center gap-3">
                           <img
-                            src={item.menuItem.image}
+                            src={getAbsoluteUrl(item.menuItem.image)}
                             alt={item.menuItem.name}
                             referrerPolicy="no-referrer"
                             className="w-12 h-12 rounded-lg object-cover border border-gold-850/30"

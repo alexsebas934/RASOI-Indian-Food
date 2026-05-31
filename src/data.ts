@@ -1,5 +1,17 @@
 import { MenuItem, Review } from "./types";
 
+export const getAbsoluteUrl = (url?: string): string => {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  }
+  const cleanPath = url.startsWith("/") ? url : `/${url}`;
+  if (typeof window !== "undefined") {
+    return `${window.location.origin}${cleanPath}`;
+  }
+  return cleanPath;
+};
+
 export const GENERATED_IMAGES = {
   // Combos
   comboOneClassics: "/assets/images/combo_one_classics_1780188277518.png",

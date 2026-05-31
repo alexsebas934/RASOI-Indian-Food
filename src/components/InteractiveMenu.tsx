@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MENU_ITEMS } from "../data";
+import { MENU_ITEMS, getAbsoluteUrl } from "../data";
 import { MenuItem, SpiceLevel } from "../types";
 import { Flame, Plus, Check, Star, CornerDownRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
@@ -71,7 +71,7 @@ export default function InteractiveMenu({
                 <div className="relative h-56 overflow-hidden bg-luxury-black/60">
                   <div className="absolute inset-0 bg-gradient-to-t from-luxury-black via-transparent to-transparent z-10 opacity-70 group-hover:opacity-45 duration-300" />
                   <img
-                    src={item.image}
+                    src={getAbsoluteUrl(item.image)}
                     alt={item.name}
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
