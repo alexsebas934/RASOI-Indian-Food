@@ -54,7 +54,7 @@ export const GENERATED_IMAGES = {
   chickenCurry: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&q=80&w=800",
 
   // Breads & Sides
-  garlicNaan: "https://images.unsplash.com/photo-1601356616077-695728de174f?auto=format&fit=crop&q=80&w=1200",
+  garlicNaan: "https://images.unsplash.com/photo-1585238342024-78d387f4a707?auto=format&fit=crop&q=80&w=1200",
   paratha: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&q=80&w=800",
   roti: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&q=80&w=800"
 };
