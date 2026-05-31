@@ -2,7 +2,8 @@ import { MenuItem, Review } from "./types";
 
 export const GENERATED_IMAGES = {
   // Combos
-  comboFeast: "/src/assets/images/combo_feast_platter_1780184862433.png",
+  comboOneClassics: "/src/assets/images/combo_one_classics_1780188277518.png",
+  comboTwoFeast: "/src/assets/images/combo_two_feast_1780188293029.png",
   
   // Appetizers (Vegetarian)
   samosas: "/src/assets/images/samosa_appetizer_1779589241717.png",
@@ -54,7 +55,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 16.99,
     description: "Indulge in rich, aromatic butter chicken paired with our savory roasted chicken tikka masala, accompanied by a full garlic naan and fluffy basmati rice. Voted #3 Most Liked!",
     category: "combos",
-    image: GENERATED_IMAGES.comboFeast,
+    image: GENERATED_IMAGES.comboTwoFeast,
     tags: ["#3 Most Liked", "DoorDash Favorite", "Best Value", "Huge Portions!"],
     spicy: true
   },
@@ -64,7 +65,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 14.99,
     description: "Choose your perfect Indian favorites: flavorful Tikka Masala, butter chicken variations, vegan lentils, delicious lamb curry, or creamy coconut chicken. Comes complete with aromatic basmati rice.",
     category: "combos",
-    image: GENERATED_IMAGES.comboFeast,
+    image: GENERATED_IMAGES.comboOneClassics,
     tags: ["Customizable", "Highly Filling", "Value Star"],
     spicy: true
   },
