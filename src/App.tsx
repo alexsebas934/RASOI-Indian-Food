@@ -137,7 +137,7 @@ export default function App() {
           
           {/* Loaded direct high-end Butter Chicken Image */}
           <img
-            src="/src/assets/images/hero_butter_chicken_1779589199615.png"
+            src="/assets/images/hero_butter_chicken_1779589199615.png"
             alt="Rasoi Signature Butter Chicken background"
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover opacity-35 lg:opacity-45 scale-105"
@@ -268,7 +268,7 @@ export default function App() {
           
           <div className="lg:col-span-6 relative h-[440px] rounded-2xl overflow-hidden shadow-2xl gold-glow border border-gold-850/30">
             <img 
-              src="/src/assets/images/hero_butter_chicken_1779589199615.png" 
+              src="/assets/images/hero_butter_chicken_1779589199615.png" 
               alt="Rasoi Indian Feast Butter Chicken and Garlic Naan"
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover"
