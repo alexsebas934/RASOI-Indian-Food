@@ -5,26 +5,22 @@ import { Flame, Plus, Check, Star, CornerDownRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 interface InteractiveMenuProps {
-  onAddItem: (item: MenuItem, spiceLevel?: SpiceLevel) => void;
-  addedItemIds: Record<string, boolean>;
-  activeCategory: "all" | "starters" | "curries" | "breads" | "bar";
-  setActiveCategory: (cat: "all" | "starters" | "curries" | "breads" | "bar") => void;
+  activeCategory: "all" | "combos" | "entrees" | "appetizers" | "sides";
+  setActiveCategory: (cat: "all" | "combos" | "entrees" | "appetizers" | "sides") => void;
 }
 
 export default function InteractiveMenu({
-  onAddItem,
-  addedItemIds,
   activeCategory,
   setActiveCategory,
 }: InteractiveMenuProps) {
   const [selectedSpices, setSelectedSpices] = useState<Record<string, SpiceLevel>>({});
 
   const categories = [
-    { id: "all", label: "Full Culinary Vault" },
-    { id: "starters", label: "Starters & Plates" },
-    { id: "curries", label: "Signature Curries" },
-    { id: "breads", label: "Tandoor Breads & Sides" },
-    { id: "bar", label: "Boutique Craft Bar" }
+    { id: "all", label: "Full Aromatic Menu" },
+    { id: "combos", label: "Featured Combos" },
+    { id: "entrees", label: "Main Entrées" },
+    { id: "appetizers", label: "Wings & Appetizers" },
+    { id: "sides", label: "Breads & Rice" }
   ];
 
   const filteredItems = activeCategory === "all"
@@ -60,7 +56,6 @@ export default function InteractiveMenu({
           {filteredItems.map((item) => {
             const isSpicyCurry = item.spicy;
             const currentSpice = selectedSpices[item.id] || "Medium";
-            const isAdded = addedItemIds[item.id];
 
             return (
               <motion.div
@@ -84,7 +79,7 @@ export default function InteractiveMenu({
                   
                   {/* Category Stamp */}
                   <span className="absolute top-4 left-4 bg-luxury-black/80 backdrop-blur-sm text-gold-400 text-[10px] tracking-widest uppercase font-semibold px-2.5 py-1 rounded-md border border-gold-700/30 z-20">
-                    {item.category === "bar" ? "Bar Fusion" : item.category}
+                    {item.category}
                   </span>
 
                   {/* Price Tag */}
@@ -144,27 +139,16 @@ export default function InteractiveMenu({
                     </div>
                   )}
 
-                  {/* Action Add Button */}
-                  <button
-                    onClick={() => onAddItem(item, isSpicyCurry ? currentSpice : undefined)}
-                    className={`w-full py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer ${
-                      isAdded
-                        ? "bg-gold-500/10 text-gold-300 border border-gold-500/30"
-                        : "bg-luxury-black/70 hover:bg-gradient-to-r hover:from-gold-600 hover:to-gold-400 hover:text-luxury-black text-gold-200 border border-gold-850/50 hover:border-transparent cursor-pointer shadow-md"
-                    }`}
+                  {/* Action DoorDash Order Button */}
+                  <a
+                    href="https://www.yelp.com/biz/rasoi-indian-food-menifee-2?osq=Restaurant+rasoi"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 bg-luxury-black/70 hover:bg-gradient-to-r hover:from-gold-600 hover:to-gold-400 hover:text-luxury-black text-gold-200 border border-gold-850/50 hover:border-transparent cursor-pointer shadow-md text-center"
                   >
-                    {isAdded ? (
-                      <>
-                        <Check className="w-4 h-4 text-gold-500" />
-                        <span>Added to Taste List</span>
-                      </>
-                    ) : (
-                      <>
-                        <Plus className="w-4 h-4" />
-                        <span>Add To Taste List</span>
-                      </>
-                    )}
-                  </button>
+                    <span>Order on DoorDash</span>
+                    <CornerDownRight className="w-3.5 h-3.5 text-gold-400 group-hover:text-luxury-black" />
+                  </a>
                 </div>
               </motion.div>
             );

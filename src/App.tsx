@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { MenuItem, CartItem, SpiceLevel } from "./types";
+import { MenuItem, SpiceLevel } from "./types";
 import { MENU_ITEMS, REVIEWS } from "./data";
 import TasteConcierge from "./components/TasteConcierge";
 import InteractiveMenu from "./components/InteractiveMenu";
-import CartSidebar from "./components/CartSidebar";
 import ReservationSection from "./components/ReservationSection";
 import { 
   Sparkle, 
@@ -18,56 +17,13 @@ import {
   MessageSquareCode, 
   Compass, 
   CalendarCheck,
-  GlassWater,
   Flame,
   Globe
 } from "lucide-react";
 import { motion } from "motion/react";
 
 export default function App() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [cartOpen, setCartOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<"all" | "starters" | "curries" | "breads" | "bar">("all");
-
-  // Map of menu item id to boolean, to quickly show "Added" on the menu card
-  const addedItemIds = cartItems.reduce<Record<string, boolean>>((acc, item) => {
-    acc[item.menuItem.id] = true;
-    return acc;
-  }, {});
-
-  const handleAddItemToCart = (item: MenuItem, spiceLevel?: SpiceLevel) => {
-    setCartItems((prev) => {
-      const existing = prev.find((c) => c.menuItem.id === item.id && c.spiceLevel === spiceLevel);
-      if (existing) {
-        return prev.map((c) => 
-          c.menuItem.id === item.id && c.spiceLevel === spiceLevel
-            ? { ...c, quantity: c.quantity + 1 }
-            : c
-        );
-      }
-      return [...prev, { id: `cart-${item.id}-${Date.now()}`, menuItem: item, quantity: 1, spiceLevel }];
-    });
-    // Visual feedback trigger
-    setCartOpen(true);
-  };
-
-  const handleUpdateQuantity = (id: string, amount: number) => {
-    setCartItems((prev) =>
-      prev
-        .map((item) => (item.id === id ? { ...item, quantity: item.quantity + amount } : item))
-        .filter((item) => item.quantity > 0)
-    );
-  };
-
-  const handleRemoveItem = (id: string) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const handleClearCart = () => {
-    setCartItems([]);
-  };
-
-  const totalCartCount = cartItems.reduce((acc, c) => acc + c.quantity, 0);
+  const [activeCategory, setActiveCategory] = useState<"all" | "combos" | "entrees" | "appetizers" | "sides">("all");
 
   // Smooth scroll handler
   const scrollTo = (elementId: string) => {
@@ -98,8 +54,8 @@ export default function App() {
           {/* Brand Logo & Meta Ratings */}
           <div className="flex items-center gap-4">
             <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-left cursor-pointer">
-              <span className="font-heading text-2xl lg:text-3xl font-semibold tracking-widest text-gold-300 select-none">
-                R A S O I
+              <span className="font-heading text-2.5xl lg:text-3xl font-extrabold tracking-wide text-gold-300 select-none">
+                RASOI
               </span>
               <span className="hidden sm:block text-[9px] uppercase tracking-widest text-gold-500 font-bold -mt-1">
                 Authentic Indian Cuisine
@@ -116,8 +72,8 @@ export default function App() {
             <button onClick={() => scrollTo("culinary-menu")} className="hover:text-gold-400 cursor-pointer transition">
               Our Menu
             </button>
-            <button onClick={() => scrollTo("boutique-bar")} className="hover:text-gold-400 cursor-pointer transition">
-              Boutique Bar
+            <button onClick={() => { scrollTo("culinary-menu"); setActiveCategory("combos"); }} className="hover:text-gold-400 cursor-pointer transition text-gold-300">
+              Featured Combos
             </button>
             <button onClick={() => scrollTo("concierge-section")} className="hover:text-gold-300 cursor-pointer transition flex items-center gap-1 text-gold-400">
               <Sparkle className="w-3.5 h-3.5 text-gold-500 animate-pulse" />
@@ -127,7 +83,7 @@ export default function App() {
               Bookings
             </button>
             <button onClick={() => scrollTo("testimonials-section")} className="hover:text-gold-400 cursor-pointer transition">
-              Aura's Scent
+              Guest Reviews
             </button>
           </nav>
 
@@ -141,22 +97,37 @@ export default function App() {
               <span>(951) 449-2165</span>
             </a>
 
-            <button
-              onClick={() => setCartOpen(true)}
-              className="relative p-3 rounded-xl bg-gold-850/10 hover:bg-gold-500 hover:text-luxury-black text-gold-300 border border-gold-850/35 hover:border-transparent select-none transition-all duration-300 cursor-pointer flex items-center gap-2"
+            <a
+              href="https://www.yelp.com/biz/rasoi-indian-food-menifee-2?osq=Restaurant+rasoi"
+              target="_blank"
+              rel="noreferrer"
+              className="relative px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold-600 to-gold-400 text-luxury-black font-extrabold text-xs uppercase tracking-widest hover:from-gold-500 hover:to-gold-300 shadow-md hover:shadow-lg transition-all duration-300 select-none flex items-center gap-2 border border-gold-400"
             >
-              <ShoppingBag className="w-4.5 h-4.5" />
-              <span className="text-xs uppercase tracking-wider font-extrabold hidden sm:inline">Cravings</span>
-              {totalCartCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-gold-500 text-luxury-black font-extrabold text-[10px] flex items-center justify-center rounded-full shadow border-2 border-luxury-black">
-                  {totalCartCount}
-                </span>
-              )}
-            </button>
+              <ShoppingBag className="w-4 h-4 fill-luxury-black" />
+              <span>Order on DoorDash</span>
+            </a>
           </div>
 
         </div>
       </header>
+
+      {/* Dynamic Menu Panel Sub-Section */}
+      <section className="pt-16 pb-20 max-w-7xl mx-auto px-6 space-y-12">
+        <div className="text-center space-y-4">
+          <span className="text-xs uppercase tracking-widest text-gold-400 font-bold block">Curated Cuisine</span>
+          <h2 className="font-heading text-4xl sm:text-5xl font-light text-gold-100 tracking-wide">
+            Explore Tandoori Masterworks
+          </h2>
+          <p className="text-sm text-gray-400 max-w-xl mx-auto leading-relaxed">
+            Click on any aromatic curry, hand-stretched naan flatbread, crispy appetizer, or family combo to view our menu highlights and order directly on our Doordash page.
+          </p>
+        </div>
+
+        <InteractiveMenu
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+        />
+      </section>
 
       {/* Hero Section */}
       <section className="relative min-h-[580px] lg:h-[680px] flex items-center py-16 bg-luxury-black overflow-hidden border-b border-gold-850/20">
@@ -201,12 +172,14 @@ export default function App() {
 
             {/* Primary conversion triggers */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-4">
-              <button
-                onClick={() => scrollTo("culinary-menu")}
-                className="px-8 py-4.5 bg-gradient-to-r from-gold-600 to-gold-400 hover:from-gold-500 hover:to-gold-300 text-luxury-black text-xs font-black uppercase tracking-widest rounded-xl hover:shadow-[0_4px_30px_rgba(188,130,32,0.35)] duration-300 text-center cursor-pointer select-none"
+              <a
+                href="https://www.yelp.com/biz/rasoi-indian-food-menifee-2?osq=Restaurant+rasoi"
+                target="_blank"
+                rel="noreferrer"
+                className="px-8 py-4.5 bg-gradient-to-r from-gold-600 to-gold-400 hover:from-gold-500 hover:to-gold-300 text-luxury-black text-xs font-black uppercase tracking-widest rounded-xl hover:shadow-[0_4px_30px_rgba(188,130,32,0.35)] duration-300 text-center cursor-pointer select-none flex items-center justify-center"
               >
-                Simulate Online Order
-              </button>
+                Order Now on DoorDash
+              </a>
               <button
                 onClick={() => scrollTo("booking-section")}
                 className="px-8 py-4.5 bg-luxury-sand hover:bg-luxury-black border border-gold-500/20 hover:border-gold-500 rounded-xl text-xs font-extrabold uppercase tracking-widest text-gold-300 duration-300 text-center cursor-pointer select-none"
@@ -289,64 +262,44 @@ export default function App() {
         </div>
       </section>
 
-      {/* Dynamic Menu Panel Sub-Section */}
-      <section className="py-24 max-w-7xl mx-auto px-6 space-y-12">
-        <div className="text-center space-y-4">
-          <span className="text-xs uppercase tracking-widest text-gold-400 font-bold block">Curated Cuisine</span>
-          <h2 className="font-heading text-4xl sm:text-5xl font-light text-gold-100 tracking-wide">
-            Explore Tandoori Masterworks
-          </h2>
-          <p className="text-sm text-gray-400 max-w-xl mx-auto leading-relaxed">
-            Click on any aromatic curry, gourmet nan flatbread, or boutique fusion cocktail to load your customized taste plate and simulate pick up or delivery instantly.
-          </p>
-        </div>
-
-        <InteractiveMenu
-          onAddItem={handleAddItemToCart}
-          addedItemIds={addedItemIds}
-          activeCategory={activeCategory}
-          setActiveCategory={setActiveCategory}
-        />
-      </section>
-
-      {/* The Boutique Mini-Bar Showcase Section */}
-      <section id="boutique-bar" className="py-20 bg-luxury-sand/20 border-t border-b border-gold-850/20">
+      {/* Featured Combos & Masterpieces Highlight Section */}
+      <section id="featured-combos" className="py-20 bg-luxury-sand/20 border-t border-b border-gold-850/20">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           <div className="lg:col-span-6 relative h-[440px] rounded-2xl overflow-hidden shadow-2xl gold-glow border border-gold-850/30">
             <img 
-              src="/src/assets/images/luxury_cocktail_bar_1779589221880.png" 
-              alt="Boutique cocktail bar at Rasoi"
+              src="/src/assets/images/hero_butter_chicken_1779589199615.png" 
+              alt="Rasoi Indian Feast Butter Chicken and Garlic Naan"
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover"
             />
             {/* Stamp */}
             <div className="absolute top-6 left-6 bg-luxury-black/90 px-4 py-2 border border-gold-500/40 rounded-xl">
-              <span className="font-heading text-gold-300 text-lg">The Mini-Bar addition</span>
+              <span className="font-heading text-gold-300 text-lg">DoorDash Rated 4.5+</span>
             </div>
           </div>
 
           <div className="lg:col-span-6 space-y-6">
-            <span className="text-xs uppercase tracking-widest text-gold-400 font-bold block">Upscale Refinements</span>
+            <span className="text-xs uppercase tracking-widest text-gold-400 font-bold block">Feast Together</span>
             <h2 className="font-heading text-4xl sm:text-5xl text-gold-100 tracking-wide font-light leading-tight">
-              Craft Cocktails & Cardamom Infusions
+              Indulge in Family-Sized Premium Combos
             </h2>
             <p className="text-sm text-gray-400 leading-relaxed font-sans">
-              Our brand new, intimate mini-bar blends top-shelf luxury with exotic Indian botany. We crush whole spice pods directly behind the glass counter, shaking cardamom-infused whiskeys, saffron-infused old fashioneds, and botanical dry gins centered on kashmiri roses.
+              Our signature <strong className="text-gold-300">COMBO 2</strong> merges juicy, slow-cooked butter chicken with our superstar roasted chicken tikka masala, served with rice and a freshly baked, giant garlic naan. Huge portions prepared fresh with hand-charcoal clay-oven baking!
             </p>
             <p className="text-sm text-gray-400 leading-relaxed font-sans">
-              Designed as a cozy, elegant sanctuary right inside Menifee, it is the perfect place to sit back, unwind, and sip custom-shaken cocktails that cool or heighten your spice exploration.
+              We also feature <strong className="text-gold-300">COMBO 1</strong> allowing you to customize your favorites—from vegan lentils to aromatic lamb curries. No complex configurations: just honest, delicious, and incredibly filling food made with love and served like family.
             </p>
 
             <button
               onClick={() => {
                 scrollTo("culinary-menu");
-                setActiveCategory && (setActiveCategory as any)("bar");
+                setActiveCategory("combos");
               }}
-              className="px-6 py-3.5 bg-luxury-black hover:bg-gold-500 text-gold-300 hover:text-luxury-black border border-gold-850/45 hover:border-transparent rounded-xl text-xs font-bold uppercase tracking-widest transition duration-300 flex items-center gap-2 cursor-pointer"
+              className="px-6 py-3.5 bg-luxury-black hover:bg-gold-500 text-gold-300 hover:text-luxury-black border border-gold-850/45 hover:border-transparent rounded-xl text-xs font-bold uppercase tracking-widest transition duration-300 flex items-center gap-2 cursor-pointer group"
             >
-              <GlassWater className="w-4 h-4 text-gold-400 group-hover:text-luxury-black" />
-              <span>Explore Bar Menu</span>
+              <UtensilsCrossed className="w-4 h-4 text-gold-400 group-hover:text-luxury-black" />
+              <span>Explore Family Combos</span>
             </button>
           </div>
 
@@ -367,12 +320,7 @@ export default function App() {
           </p>
         </div>
 
-        <TasteConcierge onAddSpecialItem={(itemId, spiceLevel) => {
-          const item = MENU_ITEMS.find((m) => m.id === itemId);
-          if (item) {
-            handleAddItemToCart(item, spiceLevel);
-          }
-        }} />
+        <TasteConcierge />
       </section>
 
       {/* Luxury Table Reservations Section */}
@@ -447,8 +395,8 @@ export default function App() {
           
           {/* Column 1: Info */}
           <div className="lg:col-span-5 space-y-5">
-            <h3 className="font-heading text-3xl font-semibold tracking-widest text-gold-300">
-              R A S O I
+            <h3 className="font-heading text-3xl font-extrabold tracking-wide text-gold-300">
+              RASOI
             </h3>
             <p className="text-xs text-gray-400 max-w-sm leading-relaxed">
               Savor traditional culinary secrets and modern drinks made lovingly right here in Menifee, California. Family-owned, family-run, and focused on exceptional guest care.
@@ -472,7 +420,7 @@ export default function App() {
             <h4 className="text-xs uppercase font-extrabold text-gold-400 tracking-widest">Navigation</h4>
             <ul className="space-y-2 text-xs text-gray-400 font-bold">
               <li><button onClick={() => scrollTo("culinary-menu")} className="hover:text-gold-400 transition">Interactive Food Menu</button></li>
-              <li><button onClick={() => scrollTo("boutique-bar")} className="hover:text-gold-400 transition">Boutique Craft Bar</button></li>
+              <li><button onClick={() => { scrollTo("culinary-menu"); setActiveCategory("combos"); }} className="hover:text-gold-400 transition">Featured Family Combos</button></li>
               <li><button onClick={() => scrollTo("concierge-section")} className="hover:text-gold-400 transition">AI Flavour Concierge</button></li>
               <li><button onClick={() => scrollTo("booking-section")} className="hover:text-gold-400 transition">Secured Table Reservation</button></li>
             </ul>
@@ -514,20 +462,10 @@ export default function App() {
             <span>•</span>
             <span>Premium Catering</span>
             <span>•</span>
-            <span>Boutique Cocktail Bar</span>
+            <span>Bakehouse Tandoor</span>
           </div>
         </div>
       </footer>
-
-      {/* Online Craving Cart drawer */}
-      <CartSidebar
-        isOpen={cartOpen}
-        onClose={() => setCartOpen(false)}
-        cartItems={cartItems}
-        onUpdateQuantity={handleUpdateQuantity}
-        onRemoveItem={handleRemoveItem}
-        onClearCart={handleClearCart}
-      />
 
     </div>
   );

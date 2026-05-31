@@ -27,7 +27,7 @@ export default function TasteConcierge({ onAddSpecialItem }: TasteConciergeProps
     { label: "🥘 Describe your best Butter Chicken pairing", text: "What is your absolute favorite way to pair and serve your Butter Chicken and Garlic Naan?" },
     { label: "🌶️ Help me brave the extra spicy curries!", text: "I love intense spicy food! Tell me about your Lamb Rogan Josh and how spicy you can make it." },
     { label: "🌾 Recommend safe Gluten-Free options", text: "I have a gluten sensitivity. Which appetizers, signature curries and sides should I order?" },
-    { label: "🍸 Suggest perfect bar cocktail pairings", text: "I want to try your new boutique bar. What artisan cocktails pair beautifully with Samosas and Paneer Tikka?" }
+    { label: "🥟 Tell me about the Golden Combos & Sides", text: "What is included in COMBO 2 and why is it our most loved option?" }
   ];
 
   useEffect(() => {

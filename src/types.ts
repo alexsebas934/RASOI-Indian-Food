@@ -5,7 +5,7 @@ export interface MenuItem {
   name: string;
   price: number;
   description: string;
-  category: "starters" | "curries" | "breads" | "bar";
+  category: "combos" | "entrees" | "appetizers" | "sides";
   image: string;
   tags: string[];
   spicy?: boolean;
@@ -31,7 +31,7 @@ export interface CartItem {
 
 export interface Reservation {
   name: string;
-  email: string;
+  email?: string;
   phone: string;
   date: string;
   time: string;
